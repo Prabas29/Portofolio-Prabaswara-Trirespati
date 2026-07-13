@@ -3,15 +3,16 @@
 @tailwind utilities;
 
 :root {
-  --ink: #12181f;
-  --ink-2: #1b232c;
-  --paper: #f5f3ee;
-  --paper-dim: #c9c6bd;
-  --gold: #c9a876;
-  --gold-dim: #8f7a54;
-  --teal: #5c9a97;
-  --teal-dim: #3c6664;
-  --line: rgba(245, 243, 238, 0.12);
+  /* Dark theme with bright blue accent — see tailwind.config.js for role notes. */
+  --ink: #0e1420; /* page background */
+  --ink-2: #182234; /* card background */
+  --paper: #e8edf4; /* primary text */
+  --paper-dim: #94a3b8; /* secondary text */
+  --gold: #4f9cf9; /* blue accent */
+  --gold-dim: #2f6fc0;
+  --teal: #3fc5d8; /* cyan accent */
+  --teal-dim: #2a8a99;
+  --line: rgba(232, 237, 244, 0.12);
 }
 
 html {
