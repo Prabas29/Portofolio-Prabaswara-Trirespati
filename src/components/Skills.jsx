@@ -19,7 +19,7 @@ export default function Skills() {
   return (
     <Section id="skills">
       <SectionHeader
-        num="05"
+        num="06"
         eyebrow="Toolkit"
         title="Skills & Languages"
         note="Tools I use day to day for analysis and project execution."

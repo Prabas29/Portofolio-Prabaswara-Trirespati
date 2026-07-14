@@ -34,7 +34,7 @@ export default function Certifications() {
   return (
     <Section id="certifications">
       <SectionHeader
-        num="06"
+        num="07"
         eyebrow="Credentials"
         title="Certifications & Training"
         note="Continuous professional development, 2024–2025."

@@ -3,6 +3,7 @@ import Sidebar from './components/Sidebar.jsx'
 import Hero from './components/Hero.jsx'
 import About from './components/About.jsx'
 import Competencies from './components/Competencies.jsx'
+import Education from './components/Education.jsx'
 import Experience from './components/Experience.jsx'
 import Projects from './components/Projects.jsx'
 import Skills from './components/Skills.jsx'
@@ -27,6 +28,7 @@ export default function App() {
         <Hero />
         <About />
         <Competencies />
+        <Education />
         <Experience />
         <Projects />
         <Skills />

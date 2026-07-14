@@ -31,7 +31,7 @@ export default function Experience() {
   return (
     <Section id="experience">
       <SectionHeader
-        num="03"
+        num="04"
         eyebrow="Track Record"
         title="Work Experience"
         note="From education to enterprise product — most recent to earliest."

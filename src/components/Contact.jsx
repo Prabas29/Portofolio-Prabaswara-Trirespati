@@ -25,7 +25,7 @@ export default function Contact() {
   return (
     <Section id="contact">
       <Reveal className="font-mono text-[0.72rem] uppercase tracking-[0.16em] text-gold">
-        07 <span className="text-paper-dim">— Connect</span>
+        08 <span className="text-paper-dim">— Connect</span>
       </Reveal>
 
       <Reveal

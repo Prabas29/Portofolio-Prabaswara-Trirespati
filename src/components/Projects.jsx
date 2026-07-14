@@ -38,7 +38,7 @@ export default function Projects() {
   return (
     <Section id="projects">
       <SectionHeader
-        num="04"
+        num="05"
         eyebrow="Portfolio"
         title="Selected Work"
         note="Click to open the project details on Google Drive."
