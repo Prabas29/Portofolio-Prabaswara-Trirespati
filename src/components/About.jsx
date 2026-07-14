@@ -16,29 +16,34 @@ export default function About() {
         <div className="space-y-6 font-body text-base leading-relaxed text-paper-dim">
           <Reveal as="p">
             I am a{' '}
-            <strong className="font-semibold text-paper">Computer Science student at BINUS University</strong>{' '}
-            (2023–present), with experience as an{' '}
-            <strong className="font-semibold text-paper">Education Counselor</strong> and now as a{' '}
+            <strong className="font-semibold text-paper">
+              Computer Science student at BINUS University
+            </strong>{' '}
+            (2023–present) who enjoys working where data meets decision making. I began as an{' '}
+            <strong className="font-semibold text-paper">Education Counselor</strong>, presenting to
+            students and coordinating school partnerships, and I am now a{' '}
             <strong className="font-semibold text-paper">Product Specialist Intern</strong> at
-            PT. Kognitif Skema Indonesia — working directly with banking clients such as BNI,
-            Bank Mega, and Bank INA on vendor evaluation, product demos, and enterprise AI project
-            documentation.
+            PT. Kognitif Skema Indonesia — supporting digital workplace tools, building simple
+            internal tools and websites, and producing documentation and data reports for the team.
           </Reveal>
           <Reveal as="p" delay={80}>
-            My core focus spans{' '}
+            Alongside my degree, I am sharpening my analytics craft through the{' '}
             <strong className="font-semibold text-paper">
-              project management, data analysis, and web-based system development
-            </strong>
-            , backed by an understanding of Agile &amp; Scrum methodologies and the ability to build
-            data dashboards (Power BI, SQL, Python) that turn raw data into actionable insight.
+              Dibimbing Data Analytics &amp; Business Intelligence bootcamp
+            </strong>{' '}
+            — practicing <strong className="font-semibold text-paper">SQL, Python, Excel,</strong>{' '}
+            and <strong className="font-semibold text-paper">Power BI</strong> on case studies that
+            cover data cleaning, exploratory data analysis, and dashboard development. My academic
+            interests sit in data analytics, data mining, and distributed cloud computing, and I work
+            in Agile &amp; Scrum.
           </Reveal>
           <Reveal as="p" delay={160}>
-            I'm keen to grow a career in{' '}
+            I am keen to grow into{' '}
             <strong className="font-semibold text-paper">
-              Business Analysis, Product Management,
+              Data Analysis, Business Analysis,
             </strong>{' '}
-            and <strong className="font-semibold text-paper">Project Management</strong> — with data
-            always at the foundation of every recommendation.
+            and <strong className="font-semibold text-paper">Product Management</strong> — turning
+            raw data into insight, and insight into recommendations a team can actually act on.
           </Reveal>
         </div>
 

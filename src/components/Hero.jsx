@@ -2,12 +2,12 @@ import Reveal from './Reveal.jsx'
 import Arrow from './Arrow.jsx'
 
 const TICKS = [
-  { value: '800+', label: 'students & parents reached' },
-  { value: '25', label: 'partner schools managed' },
-  { value: '20+', label: 'seminars & outreach sessions' },
-  { value: 'BNI · Bank Mega · Bank INA', label: 'enterprise clients' },
+  { value: 'Computer Science', label: 'BINUS University, 2023 — present' },
+  { value: 'Data Analytics & BI', label: 'Dibimbing bootcamp' },
   { value: 'Python · SQL · Power BI', label: 'data toolkit' },
+  { value: 'Data cleaning · EDA · Dashboards', label: 'analytics practice' },
   { value: 'Agile & Scrum', label: 'working methodology' },
+  { value: 'Business Analysis · Product · Project', label: 'career focus' },
 ]
 
 function TickItem({ value, label }) {

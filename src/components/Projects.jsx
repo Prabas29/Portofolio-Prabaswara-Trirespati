@@ -32,6 +32,13 @@ const PROJECTS = [
     stack: ['Python', 'Streamlit', 'Open-Meteo API'],
     href: 'https://nusantara-weather-insight-5fivlrftmfdhdhlqhvrrwa.streamlit.app/',
   },
+  {
+    index: '05 / BUSINESS INTELLIGENCE',
+    title: 'Power BI Interactive Dashboard',
+    body: 'An interactive dashboard built during the Dibimbing Data Analytics & BI bootcamp, applying advanced visualization techniques to turn raw data into an explorable, decision-ready report.',
+    stack: ['Power BI', 'DAX', 'Data Viz'],
+    href: 'https://app.powerbi.com/view?r=eyJrIjoiY2Y1NWM5ZWEtNThkMC00MDE4LTgzZDktMmZjYjE1ZjMwOWQ5IiwidCI6IjM0ODViOTYzLTgyYmEtNGE2Zi04MTBmLWI1Y2MyMjZmZjg5OCIsImMiOjEwfQ%3D%3D',
+  },
 ]
 
 export default function Projects() {

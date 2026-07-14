@@ -18,6 +18,11 @@ const CARDS = [
     title: 'Project Management',
     body: 'Planning, organizing, and monitoring project execution to stay on schedule, budget, and objectives — including team coordination and risk management.',
   },
+  {
+    tag: '// DATA',
+    title: 'Data Analyst',
+    body: 'Collecting, cleaning, and exploring data to uncover patterns, then translating them into dashboards and reports that support decision making using SQL, Python, Power BI, and Excel.',
+  },
 ]
 
 export default function Competencies() {
@@ -27,10 +32,10 @@ export default function Competencies() {
         num="02"
         eyebrow="Capabilities"
         title="Core Competencies"
-        note="The three pillars behind how I approach a problem."
+        note="The four pillars behind how I approach a problem."
       />
 
-      <div className="grid gap-6 md:grid-cols-3">
+      <div className="grid gap-6 md:grid-cols-2">
         {CARDS.map((c, i) => (
           <Reveal
             key={c.title}
