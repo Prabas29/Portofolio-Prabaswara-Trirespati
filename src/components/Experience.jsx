@@ -7,6 +7,7 @@ const ROLES = [
     period: 'FEB 2026 — PRESENT',
     role: 'Product Specialist Intern',
     org: 'PT. Kognitif Skema Indonesia',
+    logo: '/logoSkema.webp',
     points: [
       'Supporting the setup and configuration of digital workplace tools such as Microsoft 365, Google Workspace, and Lark.',
       'Managing user access, permissions, and group administration for efficient system usage.',
@@ -18,6 +19,7 @@ const ROLES = [
     period: 'JUN 2024 — AUG 2025',
     role: 'Education Counselor — Team Promotion',
     org: 'BINUS University',
+    logo: '/logoBinus2.png',
     points: [
       'Delivered interactive presentations to 800+ students & parents across partner schools, introducing 15+ study programs.',
       'Organized 20+ outreach activities, seminars, and educational counseling sessions.',
@@ -47,10 +49,23 @@ export default function Experience() {
               {r.period}
             </div>
             <div>
-              <h3 className="font-display text-xl font-semibold tracking-[-0.02em] text-paper sm:text-2xl">
-                {r.role}
-                <span className="text-paper-dim"> — {r.org}</span>
-              </h3>
+              <div className="flex items-center gap-4">
+                {/* White tile keeps dark-inked logos legible on the dark background. */}
+                <span className="flex h-14 shrink-0 items-center justify-center rounded-md bg-white px-2.5 py-2">
+                  <img
+                    src={r.logo}
+                    alt={`${r.org} logo`}
+                    loading="lazy"
+                    className="h-full w-auto object-contain"
+                  />
+                </span>
+                <div>
+                  <h3 className="font-display text-xl font-semibold tracking-[-0.02em] text-paper sm:text-2xl">
+                    {r.role}
+                  </h3>
+                  <p className="mt-0.5 font-body text-sm text-paper-dim">{r.org}</p>
+                </div>
+              </div>
               <ul className="mt-5 space-y-3">
                 {r.points.map((p, i) => (
                   <li
