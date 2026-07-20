@@ -32,7 +32,7 @@ export default function Hero() {
           <Reveal
             as="h1"
             delay={90}
-            className="mt-7 max-w-4xl font-display text-[2.6rem] font-semibold leading-[1.02] tracking-[-0.02em] text-paper sm:text-[3.6rem] md:text-[4.6rem]"
+            className="mt-7 max-w-4xl font-display text-[clamp(2.4rem,7vw,4.6rem)] font-semibold leading-[1.03] tracking-[-0.02em] text-paper"
           >
             Turning data into{' '}
             <span className="italic font-[450] text-gold">business decisions.</span>

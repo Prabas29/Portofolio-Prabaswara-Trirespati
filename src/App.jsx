@@ -22,7 +22,7 @@ export default function App() {
   const progress = useScrollProgress()
 
   return (
-    <div className="min-h-screen bg-ink text-paper">
+    <div className="min-h-screen overflow-x-hidden bg-ink text-paper">
       <Sidebar activeId={activeId} progress={progress} />
       <main className="md:pl-[240px]">
         <Hero />

@@ -31,7 +31,7 @@ export default function Contact() {
       <Reveal
         as="h2"
         delay={80}
-        className="mt-6 max-w-3xl font-display text-[2.2rem] font-semibold leading-[1.05] tracking-[-0.02em] text-paper sm:text-[3rem] md:text-[3.6rem]"
+        className="mt-6 max-w-3xl font-display text-[clamp(2rem,5.5vw,3.6rem)] font-semibold leading-[1.05] tracking-[-0.02em] text-paper"
       >
         Let's talk about the{' '}
         <span className="italic font-[450] text-gold">next opportunity.</span>

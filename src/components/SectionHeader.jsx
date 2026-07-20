@@ -11,7 +11,7 @@ export default function SectionHeader({ num, eyebrow, title, note }) {
         <Reveal
           as="h2"
           delay={80}
-          className="font-display text-[2rem] font-semibold leading-[1.05] tracking-[-0.02em] text-paper sm:text-[2.6rem] md:text-[3rem]"
+          className="font-display text-[clamp(1.9rem,5vw,3rem)] font-semibold leading-[1.05] tracking-[-0.02em] text-paper"
         >
           {title}
         </Reveal>

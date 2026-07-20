@@ -28,6 +28,13 @@ body {
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+  overflow-x: hidden; /* guard against any horizontal scroll on small screens */
+}
+
+/* Never let media or long tokens force the page wider than the viewport. */
+img,
+svg {
+  max-width: 100%;
 }
 
 /* ---------- Selection ---------- */
