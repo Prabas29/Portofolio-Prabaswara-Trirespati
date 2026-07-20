@@ -16,7 +16,7 @@ const PROJECTS = [
     title: 'Heart Attack Prediction in Indonesia',
     body: 'Applied machine learning models (Random Forest, Logistic Regression, ANN) using Python for predictive analysis and data visualization.',
     stack: ['Python', 'Random Forest', 'ANN', 'Data Viz'],
-    href: 'https://drive.google.com/file/d/1MppgMrViNUGRwUjlvrqDDjUovA20sqKR/view',
+    href: 'https://drive.google.com/file/d/1QHGRdpPe9s_rKkTlQUoF6FRaqQj9veo0/view?usp=sharing',
   },
   {
     index: '03 / COMPUTATIONAL BIOLOGY',
