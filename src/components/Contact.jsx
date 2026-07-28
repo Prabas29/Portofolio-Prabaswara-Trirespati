@@ -1,31 +1,15 @@
 import Section from './Section.jsx'
 import Reveal from './Reveal.jsx'
 import Arrow from './Arrow.jsx'
-
-const CONTACTS = [
-  {
-    label: 'Email',
-    value: 'prabaswaratrirespati12@gmail.com',
-    href: 'mailto:prabaswaratrirespati12@gmail.com',
-  },
-  {
-    label: 'Phone',
-    value: '(+62) 878-8222-8360',
-    href: 'tel:+6287882228360',
-  },
-  {
-    label: 'LinkedIn',
-    value: '/in/prabaswara-trirespati',
-    href: 'https://linkedin.com/in/prabaswara-trirespati',
-    external: true,
-  },
-]
+import { useLang } from '../i18n/LanguageContext.jsx'
 
 export default function Contact() {
+  const { t } = useLang()
+
   return (
     <Section id="contact">
       <Reveal className="font-mono text-[0.72rem] uppercase tracking-[0.16em] text-gold">
-        08 <span className="text-paper-dim">— Connect</span>
+        08 <span className="text-paper-dim">— {t.contact.eyebrow}</span>
       </Reveal>
 
       <Reveal
@@ -33,12 +17,12 @@ export default function Contact() {
         delay={80}
         className="mt-6 max-w-3xl font-display text-[clamp(2rem,5.5vw,3.6rem)] font-semibold leading-[1.05] tracking-[-0.02em] text-paper"
       >
-        Let's talk about the{' '}
-        <span className="italic font-[450] text-gold">next opportunity.</span>
+        {t.contact.headlineLead}
+        <span className="italic font-[450] text-gold">{t.contact.headlineAccent}</span>
       </Reveal>
 
       <div className="mt-14">
-        {CONTACTS.map((c) => (
+        {t.contact.items.map((c) => (
           <Reveal key={c.label}>
             <a
               href={c.href}

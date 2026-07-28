@@ -1,44 +1,22 @@
 import Section from './Section.jsx'
 import SectionHeader from './SectionHeader.jsx'
 import Reveal from './Reveal.jsx'
-
-const SCHOOLS = [
-  {
-    period: '2023 — PRESENT',
-    school: 'BINUS University',
-    degree: "Bachelor's Degree, Computer Science",
-    logo: '/logo-binus.png',
-    points: [
-      'Field of Interest: Data Analytics, Distributed Cloud Computing, and Data Mining.',
-      'Software Skills: Microsoft Office (Word, Excel, PowerPoint), Google Workspace (Docs, Sheets, Forms), SQL, Python, Power BI, and project management tools (Trello & Notion).',
-      'Soft Skills: Leadership, Teamwork, Public Speaking, Time Management, Problem Solving, Presentation Skills, Communication, Critical Thinking, Good Integrity, and Visioneering.',
-    ],
-  },
-  {
-    period: 'APR 2026 — PRESENT',
-    school: 'Dibimbing',
-    degree: 'Data Analytics and Business Intelligence Bootcamp',
-    logo: '/logo-dibimbing.png',
-    points: [
-      'Learning data analysis, business intelligence, and data visualization using SQL, Python, Excel, and visualization tools.',
-      'Working on hands-on projects and case studies covering data cleaning, exploratory data analysis (EDA), dashboard creation, and data-driven decision making.',
-      'Focus areas: SQL practice, Python data analysis, dashboard development, business intelligence case studies, and team collaboration.',
-    ],
-  },
-]
+import { useLang } from '../i18n/LanguageContext.jsx'
 
 export default function Education() {
+  const { t } = useLang()
+
   return (
     <Section id="education">
       <SectionHeader
         num="03"
-        eyebrow="Education"
-        title="Educational Background"
-        note="Formal degree and ongoing data analytics training."
+        eyebrow={t.education.eyebrow}
+        title={t.education.title}
+        note={t.education.note}
       />
 
       <div>
-        {SCHOOLS.map((s) => (
+        {t.education.items.map((s) => (
           <Reveal
             key={s.school}
             className="grid gap-6 border-t border-line py-10 md:grid-cols-[180px_1fr] md:gap-10"

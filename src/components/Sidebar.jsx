@@ -1,9 +1,12 @@
 import { useEffect, useState } from 'react'
 import { NAV_SECTIONS } from '../data/nav.js'
+import { useLang } from '../i18n/LanguageContext.jsx'
+import LangToggle from './LangToggle.jsx'
 
 // Fixed left navigation rail on desktop; collapses to a top bar with a
 // full dropdown menu under 800px so every section stays reachable on mobile.
 export default function Sidebar({ activeId, progress }) {
+  const { t } = useLang()
   const [open, setOpen] = useState(false)
 
   // Close the mobile menu once the viewport grows to desktop width.
@@ -27,12 +30,15 @@ export default function Sidebar({ activeId, progress }) {
             Prabaswara<span className="text-gold"> T.</span>
           </span>
           <span className="mt-1 hidden font-mono text-[0.65rem] uppercase tracking-[0.14em] text-paper-dim md:block">
-            Data · Product · Analysis
+            {t.sidebar.tagline}
           </span>
         </a>
 
+        {/* Language toggle (desktop) */}
+        <LangToggle className="mt-6 hidden self-start md:inline-flex" />
+
         {/* Desktop nav */}
-        <nav className="mt-14 hidden flex-1 md:block" aria-label="Main navigation">
+        <nav className="mt-10 hidden flex-1 md:block" aria-label="Main navigation">
           <ul className="space-y-1">
             {NAV_SECTIONS.map((s) => {
               const active = activeId === s.id
@@ -50,7 +56,7 @@ export default function Sidebar({ activeId, progress }) {
                       }`}
                     />
                     <span className="tabular-nums">{s.num}</span>
-                    <span>{s.label}</span>
+                    <span>{t.nav[s.id]}</span>
                   </a>
                 </li>
               )
@@ -92,32 +98,35 @@ export default function Sidebar({ activeId, progress }) {
           </a>
         </div>
 
-        {/* Mobile menu toggle */}
-        <button
-          type="button"
-          onClick={() => setOpen((v) => !v)}
-          aria-expanded={open}
-          aria-label={open ? 'Close menu' : 'Open menu'}
-          className="flex h-9 w-9 items-center justify-center rounded-md border border-line text-paper transition-colors hover:border-gold-dim md:hidden"
-        >
-          <span className="relative block h-3.5 w-4">
-            <span
-              className={`absolute left-0 top-0 h-0.5 w-full bg-current transition-all duration-300 ${
-                open ? 'top-1.5 rotate-45' : ''
-              }`}
-            />
-            <span
-              className={`absolute left-0 top-1.5 h-0.5 w-full bg-current transition-opacity duration-300 ${
-                open ? 'opacity-0' : ''
-              }`}
-            />
-            <span
-              className={`absolute left-0 top-3 h-0.5 w-full bg-current transition-all duration-300 ${
-                open ? 'top-1.5 -rotate-45' : ''
-              }`}
-            />
-          </span>
-        </button>
+        {/* Mobile controls */}
+        <div className="flex items-center gap-3 md:hidden">
+          <LangToggle />
+          <button
+            type="button"
+            onClick={() => setOpen((v) => !v)}
+            aria-expanded={open}
+            aria-label={open ? 'Close menu' : 'Open menu'}
+            className="flex h-9 w-9 items-center justify-center rounded-md border border-line text-paper transition-colors hover:border-gold-dim"
+          >
+            <span className="relative block h-3.5 w-4">
+              <span
+                className={`absolute left-0 top-0 h-0.5 w-full bg-current transition-all duration-300 ${
+                  open ? 'top-1.5 rotate-45' : ''
+                }`}
+              />
+              <span
+                className={`absolute left-0 top-1.5 h-0.5 w-full bg-current transition-opacity duration-300 ${
+                  open ? 'opacity-0' : ''
+                }`}
+              />
+              <span
+                className={`absolute left-0 top-3 h-0.5 w-full bg-current transition-all duration-300 ${
+                  open ? 'top-1.5 -rotate-45' : ''
+                }`}
+              />
+            </span>
+          </button>
+        </div>
       </div>
 
       {/* Mobile scroll-progress line at the bottom edge of the bar */}
@@ -150,7 +159,7 @@ export default function Sidebar({ activeId, progress }) {
                     }`}
                   >
                     <span className="tabular-nums text-[0.7rem] text-teal">{s.num}</span>
-                    <span>{s.label}</span>
+                    <span>{t.nav[s.id]}</span>
                   </a>
                 </li>
               )

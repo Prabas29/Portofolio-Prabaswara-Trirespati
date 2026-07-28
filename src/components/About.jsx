@@ -1,50 +1,40 @@
 import Section from './Section.jsx'
 import SectionHeader from './SectionHeader.jsx'
 import Reveal from './Reveal.jsx'
+import { useLang } from '../i18n/LanguageContext.jsx'
+
+// Renders a paragraph made of { t, b? } segments, bolding where b is set.
+function RichParagraph({ segments }) {
+  return segments.map((s, i) =>
+    s.b ? (
+      <strong key={i} className="font-semibold text-paper">
+        {s.t}
+      </strong>
+    ) : (
+      <span key={i}>{s.t}</span>
+    ),
+  )
+}
 
 export default function About() {
+  const { t } = useLang()
+
   return (
     <Section id="about">
       <SectionHeader
         num="01"
-        eyebrow="Profile"
-        title="About Me"
-        note="A snapshot of my background, career direction, and how I work."
+        eyebrow={t.about.eyebrow}
+        title={t.about.title}
+        note={t.about.note}
       />
 
       <div className="grid gap-12 md:grid-cols-[1.5fr_1fr] md:gap-16">
         <div className="space-y-6 font-body text-base leading-relaxed text-paper-dim">
-          <Reveal as="p">
-            I am a{' '}
-            <strong className="font-semibold text-paper">
-              Computer Science student at BINUS University
-            </strong>{' '}
-            (2023–present) who enjoys working where data meets decision making. I began as an{' '}
-            <strong className="font-semibold text-paper">Education Counselor</strong>, presenting to
-            students and coordinating school partnerships, and I am now a{' '}
-            <strong className="font-semibold text-paper">Product Specialist Intern</strong> at
-            PT. Kognitif Skema Indonesia — supporting digital workplace tools, building simple
-            internal tools and websites, and producing documentation and data reports for the team.
-          </Reveal>
-          <Reveal as="p" delay={80}>
-            Alongside my degree, I am sharpening my analytics craft through the{' '}
-            <strong className="font-semibold text-paper">
-              Dibimbing Data Analytics &amp; Business Intelligence bootcamp
-            </strong>{' '}
-            — practicing <strong className="font-semibold text-paper">SQL, Python, Excel,</strong>{' '}
-            and <strong className="font-semibold text-paper">Power BI</strong> on case studies that
-            cover data cleaning, exploratory data analysis, and dashboard development. My academic
-            interests sit in data analytics, data mining, and distributed cloud computing, and I work
-            in Agile &amp; Scrum.
-          </Reveal>
-          <Reveal as="p" delay={160}>
-            I am keen to grow into{' '}
-            <strong className="font-semibold text-paper">
-              Data Analysis, Business Analysis,
-            </strong>{' '}
-            and <strong className="font-semibold text-paper">Product Management</strong> — turning
-            raw data into insight, and insight into recommendations a team can actually act on.
-          </Reveal>
+          {t.about.paragraphs.map((segments, i) => (
+            <Reveal as="p" key={i} delay={i * 80}>
+              <RichParagraph segments={segments} />
+            </Reveal>
+          ))}
         </div>
 
         <Reveal delay={120} className="md:pt-1">

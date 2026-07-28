@@ -2,52 +2,22 @@ import Section from './Section.jsx'
 import SectionHeader from './SectionHeader.jsx'
 import Reveal from './Reveal.jsx'
 import Arrow from './Arrow.jsx'
-
-const CERTS = [
-  {
-    name: 'Website Design with MySQL and PHP',
-    issuer: 'BINUS University × Great Nusa',
-    year: '2025',
-    image: '/cert-website-mysql.jpeg',
-  },
-  {
-    name: 'Introduction to Agile and Scrum Methodologies',
-    issuer: 'BINUS University × Great Nusa',
-    year: '2025',
-    image: '/cert-agile-scrum.jpeg',
-  },
-  {
-    name: 'Professional Office (CEFR C)',
-    issuer: 'BINUS University × Beelingua',
-    year: '2024',
-    image: '/cert-professional-office.jpeg',
-  },
-  {
-    name: 'Market Research & Business Communication (CEFR C)',
-    issuer: 'BINUS University × Beelingua',
-    year: '2024',
-    image: '/cert-market-research.jpeg',
-  },
-  {
-    name: 'Delivering an Effective Presentation — Marketing Associate',
-    issuer: 'BINUS University',
-    year: '2024',
-    image: '/cert-presentation.jpeg',
-  },
-]
+import { useLang } from '../i18n/LanguageContext.jsx'
 
 export default function Certifications() {
+  const { t } = useLang()
+
   return (
     <Section id="certifications">
       <SectionHeader
         num="07"
-        eyebrow="Credentials"
-        title="Certifications & Training"
-        note="Continuous professional development, 2024–2025."
+        eyebrow={t.certifications.eyebrow}
+        title={t.certifications.title}
+        note={t.certifications.note}
       />
 
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {CERTS.map((c, i) => (
+        {t.certifications.items.map((c, i) => (
           <Reveal
             key={c.name}
             delay={(i % 3) * 90}
@@ -87,7 +57,7 @@ export default function Certifications() {
                 rel="noreferrer"
                 className="mt-4 inline-flex items-center gap-2 font-mono text-[0.68rem] uppercase tracking-[0.12em] text-gold transition-colors hover:text-paper"
               >
-                View certificate
+                {t.certifications.cta}
                 <Arrow className="transition-transform duration-300 group-hover:translate-x-1" />
               </a>
             </div>

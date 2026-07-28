@@ -1,45 +1,25 @@
 import Section from './Section.jsx'
 import SectionHeader from './SectionHeader.jsx'
 import Reveal from './Reveal.jsx'
-
-const CARDS = [
-  {
-    tag: '// ANALYSIS',
-    title: 'Business Analyst',
-    body: 'Identifying business needs, analyzing operational processes, and building data-driven recommendations to improve organizational efficiency using Excel, SQL, and Google Sheets.',
-  },
-  {
-    tag: '// STRATEGY',
-    title: 'Product Management',
-    body: 'Designing product concepts based on market research and user needs, managing the product lifecycle, and collaborating cross-functionally to align with business goals.',
-  },
-  {
-    tag: '// EXECUTION',
-    title: 'Project Management',
-    body: 'Planning, organizing, and monitoring project execution to stay on schedule, budget, and objectives — including team coordination and risk management.',
-  },
-  {
-    tag: '// DATA',
-    title: 'Data Analyst',
-    body: 'Collecting, cleaning, and exploring data to uncover patterns, then translating them into dashboards and reports that support decision making using SQL, Python, Power BI, and Excel.',
-  },
-]
+import { useLang } from '../i18n/LanguageContext.jsx'
 
 export default function Competencies() {
+  const { t } = useLang()
+
   return (
     <Section id="competencies">
       <SectionHeader
         num="02"
-        eyebrow="Capabilities"
-        title="Core Competencies"
-        note="The four pillars behind how I approach a problem."
+        eyebrow={t.competencies.eyebrow}
+        title={t.competencies.title}
+        note={t.competencies.note}
       />
 
       <div className="grid gap-6 md:grid-cols-2">
-        {CARDS.map((c, i) => (
+        {t.competencies.cards.map((c, i) => (
           <Reveal
             key={c.title}
-            delay={i * 100}
+            delay={(i % 2) * 100}
             className="flex flex-col rounded-lg border border-line bg-ink-2/40 p-7 transition-colors hover:border-gold-dim/60"
           >
             <span className="font-mono text-[0.68rem] uppercase tracking-[0.14em] text-teal">

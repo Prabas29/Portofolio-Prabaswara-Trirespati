@@ -1,32 +1,22 @@
 import Section from './Section.jsx'
 import SectionHeader from './SectionHeader.jsx'
 import Reveal from './Reveal.jsx'
-
-const GROUPS = [
-  { label: 'Data Analysis', items: ['SQL', 'Python', 'Power BI', 'Excel'] },
-  {
-    label: 'Productivity & Collaboration',
-    items: ['Google Workspace', 'Microsoft 365', 'Notion', 'Trello', 'Lark'],
-  },
-  { label: 'Methodology', items: ['Agile', 'Scrum', 'User-Centered Design'] },
-  {
-    label: 'Languages',
-    items: ['Bahasa Indonesia — Native', 'English — Intermediate'],
-  },
-]
+import { useLang } from '../i18n/LanguageContext.jsx'
 
 export default function Skills() {
+  const { t } = useLang()
+
   return (
     <Section id="skills">
       <SectionHeader
         num="06"
-        eyebrow="Toolkit"
-        title="Skills & Languages"
-        note="Tools I use day to day for analysis and project execution."
+        eyebrow={t.skills.eyebrow}
+        title={t.skills.title}
+        note={t.skills.note}
       />
 
       <div className="grid gap-10 sm:grid-cols-2">
-        {GROUPS.map((g, i) => (
+        {t.skills.groups.map((g, i) => (
           <Reveal key={g.label} delay={(i % 2) * 90}>
             <h3 className="font-mono text-[0.7rem] uppercase tracking-[0.14em] text-teal">
               {g.label}

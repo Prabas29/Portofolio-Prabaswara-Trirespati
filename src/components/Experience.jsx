@@ -1,46 +1,22 @@
 import Section from './Section.jsx'
 import SectionHeader from './SectionHeader.jsx'
 import Reveal from './Reveal.jsx'
-
-const ROLES = [
-  {
-    period: 'FEB 2026 — PRESENT',
-    role: 'Product Specialist Intern',
-    org: 'PT. Kognitif Skema Indonesia',
-    logo: '/logoSkema.webp',
-    points: [
-      'Supporting the setup and configuration of digital workplace tools such as Microsoft 365, Google Workspace, and Lark.',
-      'Managing user access, permissions, and group administration for efficient system usage.',
-      'Developing simple software solutions — internal tools, applications, and websites for operational processes.',
-      'Producing documentation, user guides, and data reports using Excel, Google Sheets, and Power BI.',
-    ],
-  },
-  {
-    period: 'JUN 2024 — AUG 2025',
-    role: 'Education Counselor — Team Promotion',
-    org: 'BINUS University',
-    logo: '/logoBinus2.png',
-    points: [
-      'Delivered interactive presentations to 800+ students & parents across partner schools, introducing 15+ study programs.',
-      'Organized 20+ outreach activities, seminars, and educational counseling sessions.',
-      'Managed partnerships with 25 schools through regular coordination and documentation using Google Sheets.',
-      'Contributed to promotional strategy and publication materials to strengthen the BINUS brand across Greater Jakarta.',
-    ],
-  },
-]
+import { useLang } from '../i18n/LanguageContext.jsx'
 
 export default function Experience() {
+  const { t } = useLang()
+
   return (
     <Section id="experience">
       <SectionHeader
         num="04"
-        eyebrow="Track Record"
-        title="Work Experience"
-        note="From education to enterprise product — most recent to earliest."
+        eyebrow={t.experience.eyebrow}
+        title={t.experience.title}
+        note={t.experience.note}
       />
 
       <div>
-        {ROLES.map((r) => (
+        {t.experience.roles.map((r) => (
           <Reveal
             key={r.role}
             className="grid gap-6 border-t border-line py-10 md:grid-cols-[180px_1fr] md:gap-10"
