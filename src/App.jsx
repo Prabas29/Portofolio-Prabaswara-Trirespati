@@ -14,12 +14,16 @@ import { NAV_SECTIONS } from './data/nav.js'
 import { useReveal } from './hooks/useReveal.js'
 import { useScrollSpy } from './hooks/useScrollSpy.js'
 import { useScrollProgress } from './hooks/useScrollProgress.js'
+import { useVisitNotification } from './hooks/useVisitNotification.js'
+import { useLang } from './i18n/LanguageContext.jsx'
 
 export default function App() {
   const sectionIds = useMemo(() => NAV_SECTIONS.map((s) => s.id), [])
+  const { lang } = useLang()
   useReveal()
   const activeId = useScrollSpy(sectionIds)
   const progress = useScrollProgress()
+  useVisitNotification(lang)
 
   return (
     <div className="min-h-screen overflow-x-hidden bg-ink text-paper">
