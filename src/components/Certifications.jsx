@@ -4,13 +4,13 @@ import Reveal from './Reveal.jsx'
 import Arrow from './Arrow.jsx'
 import { useLang } from '../i18n/LanguageContext.jsx'
 
-export default function Certifications() {
+export default function Certifications({ num }) {
   const { t } = useLang()
 
   return (
     <Section id="certifications">
       <SectionHeader
-        num="07"
+        num={num}
         eyebrow={t.certifications.eyebrow}
         title={t.certifications.title}
         note={t.certifications.note}

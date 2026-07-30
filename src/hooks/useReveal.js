@@ -2,10 +2,11 @@ import { useEffect } from 'react'
 
 // Adds `.is-visible` to every `.reveal` element once it enters the viewport,
 // then stops observing it (fire once). Honors prefers-reduced-motion by
-// leaving the CSS to short-circuit the transition.
-export function useReveal() {
+// leaving the CSS to short-circuit the transition. `deps` lets callers re-scan
+// after the set of rendered sections changes.
+export function useReveal(deps = []) {
   useEffect(() => {
-    const els = Array.from(document.querySelectorAll('.reveal'))
+    const els = Array.from(document.querySelectorAll('.reveal:not(.is-visible)'))
     if (!('IntersectionObserver' in window) || els.length === 0) {
       els.forEach((el) => el.classList.add('is-visible'))
       return
@@ -25,5 +26,6 @@ export function useReveal() {
 
     els.forEach((el) => observer.observe(el))
     return () => observer.disconnect()
-  }, [])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, deps)
 }

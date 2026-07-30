@@ -3,13 +3,13 @@ import Reveal from './Reveal.jsx'
 import Arrow from './Arrow.jsx'
 import { useLang } from '../i18n/LanguageContext.jsx'
 
-export default function Contact() {
+export default function Contact({ num }) {
   const { t } = useLang()
 
   return (
     <Section id="contact">
       <Reveal className="font-mono text-[0.72rem] uppercase tracking-[0.16em] text-gold">
-        08 <span className="text-paper-dim">— {t.contact.eyebrow}</span>
+        {num} <span className="text-paper-dim">— {t.contact.eyebrow}</span>
       </Reveal>
 
       <Reveal

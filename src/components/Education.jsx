@@ -3,13 +3,13 @@ import SectionHeader from './SectionHeader.jsx'
 import Reveal from './Reveal.jsx'
 import { useLang } from '../i18n/LanguageContext.jsx'
 
-export default function Education() {
+export default function Education({ num }) {
   const { t } = useLang()
 
   return (
     <Section id="education">
       <SectionHeader
-        num="03"
+        num={num}
         eyebrow={t.education.eyebrow}
         title={t.education.title}
         note={t.education.note}

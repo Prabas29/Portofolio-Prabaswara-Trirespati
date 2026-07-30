@@ -1,11 +1,10 @@
 import { useEffect, useState } from 'react'
-import { NAV_SECTIONS } from '../data/nav.js'
 import { useLang } from '../i18n/LanguageContext.jsx'
 import LangToggle from './LangToggle.jsx'
 
 // Fixed left navigation rail on desktop; collapses to a top bar with a
 // full dropdown menu under 800px so every section stays reachable on mobile.
-export default function Sidebar({ activeId, progress }) {
+export default function Sidebar({ sections, activeId, progress }) {
   const { t } = useLang()
   const [open, setOpen] = useState(false)
 
@@ -40,7 +39,7 @@ export default function Sidebar({ activeId, progress }) {
         {/* Desktop nav */}
         <nav className="mt-10 hidden flex-1 md:block" aria-label="Main navigation">
           <ul className="space-y-1">
-            {NAV_SECTIONS.map((s) => {
+            {sections.map((s) => {
               const active = activeId === s.id
               return (
                 <li key={s.id}>
@@ -56,7 +55,7 @@ export default function Sidebar({ activeId, progress }) {
                       }`}
                     />
                     <span className="tabular-nums">{s.num}</span>
-                    <span>{t.nav[s.id]}</span>
+                    <span>{s.label}</span>
                   </a>
                 </li>
               )
@@ -147,7 +146,7 @@ export default function Sidebar({ activeId, progress }) {
       >
         <nav className="px-5 py-4" aria-label="Mobile navigation">
           <ul className="space-y-1">
-            {NAV_SECTIONS.map((s) => {
+            {sections.map((s) => {
               const active = activeId === s.id
               return (
                 <li key={s.id}>
@@ -159,7 +158,7 @@ export default function Sidebar({ activeId, progress }) {
                     }`}
                   >
                     <span className="tabular-nums text-[0.7rem] text-teal">{s.num}</span>
-                    <span>{t.nav[s.id]}</span>
+                    <span>{s.label}</span>
                   </a>
                 </li>
               )

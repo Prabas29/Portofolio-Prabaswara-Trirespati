@@ -3,13 +3,13 @@ import SectionHeader from './SectionHeader.jsx'
 import Reveal from './Reveal.jsx'
 import { useLang } from '../i18n/LanguageContext.jsx'
 
-export default function Competencies() {
+export default function Competencies({ num }) {
   const { t } = useLang()
 
   return (
     <Section id="competencies">
       <SectionHeader
-        num="02"
+        num={num}
         eyebrow={t.competencies.eyebrow}
         title={t.competencies.title}
         note={t.competencies.note}

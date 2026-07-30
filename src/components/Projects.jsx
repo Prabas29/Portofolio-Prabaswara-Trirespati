@@ -4,13 +4,13 @@ import Reveal from './Reveal.jsx'
 import Arrow from './Arrow.jsx'
 import { useLang } from '../i18n/LanguageContext.jsx'
 
-export default function Projects() {
+export default function Projects({ num }) {
   const { t } = useLang()
 
   return (
     <Section id="projects">
       <SectionHeader
-        num="05"
+        num={num}
         eyebrow={t.projects.eyebrow}
         title={t.projects.title}
         note={t.projects.note}
