@@ -4,21 +4,31 @@ import { supabase } from '../lib/supabase.js'
 const inputClass =
   'w-full rounded-md border border-line bg-ink px-3 py-2 font-body text-sm text-paper placeholder:text-paper-dim/60 focus:border-gold focus:outline-none'
 
-export function Label({ children, hint }) {
+export function Label({ children, hint, shared }) {
   return (
     <div className="mb-1.5">
       <span className="font-mono text-[0.66rem] uppercase tracking-[0.12em] text-paper-dim">
         {children}
       </span>
+      {shared && (
+        <span
+          className="ml-2 rounded border border-teal/40 px-1.5 py-0.5 align-middle font-mono text-[0.55rem] uppercase tracking-[0.08em] text-teal"
+          title="Nilai ini otomatis sama untuk Bahasa Indonesia dan English"
+        >
+          ↔ 2 bahasa
+        </span>
+      )}
       {hint && <p className="mt-0.5 font-body text-xs text-paper-dim/70">{hint}</p>}
     </div>
   )
 }
 
-export function TextField({ label, value, onChange, multiline, placeholder, hint }) {
+export function TextField({ label, value, onChange, multiline, placeholder, hint, shared }) {
   return (
     <label className="block">
-      <Label hint={hint}>{label}</Label>
+      <Label hint={hint} shared={shared}>
+        {label}
+      </Label>
       {multiline ? (
         <textarea
           rows={4}
@@ -41,7 +51,7 @@ export function TextField({ label, value, onChange, multiline, placeholder, hint
 }
 
 // Array-of-strings editor: one row per entry, add/remove/reorder.
-export function ListField({ label, value, onChange, hint }) {
+export function ListField({ label, value, onChange, hint, shared }) {
   const items = Array.isArray(value) ? value : []
 
   const update = (i, v) => onChange(items.map((item, idx) => (idx === i ? v : item)))
@@ -56,7 +66,9 @@ export function ListField({ label, value, onChange, hint }) {
 
   return (
     <div>
-      <Label hint={hint}>{label}</Label>
+      <Label hint={hint} shared={shared}>
+        {label}
+      </Label>
       <div className="space-y-2">
         {items.map((item, i) => (
           <div key={i} className="flex items-start gap-2">
@@ -92,7 +104,7 @@ export function ListField({ label, value, onChange, hint }) {
 }
 
 // Image field: paste a URL/path or upload straight to Supabase Storage.
-export function ImageField({ label, value, onChange, hint }) {
+export function ImageField({ label, value, onChange, hint, shared }) {
   const fileRef = useRef(null)
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState('')
@@ -120,7 +132,9 @@ export function ImageField({ label, value, onChange, hint }) {
 
   return (
     <div>
-      <Label hint={hint}>{label}</Label>
+      <Label hint={hint} shared={shared}>
+        {label}
+      </Label>
       <div className="flex items-start gap-3">
         {value ? (
           <span className="flex h-16 w-16 shrink-0 items-center justify-center overflow-hidden rounded-md border border-line bg-white p-1">
@@ -192,10 +206,26 @@ export function IconBtn({ children, onClick, title, danger }) {
 // Dispatches to the right control based on a schema field definition.
 export function SchemaField({ field, value, onChange }) {
   if (field.type === 'list') {
-    return <ListField label={field.label} value={value} onChange={onChange} hint={field.hint} />
+    return (
+      <ListField
+        label={field.label}
+        value={value}
+        onChange={onChange}
+        hint={field.hint}
+        shared={field.shared}
+      />
+    )
   }
   if (field.type === 'image') {
-    return <ImageField label={field.label} value={value} onChange={onChange} hint={field.hint} />
+    return (
+      <ImageField
+        label={field.label}
+        value={value}
+        onChange={onChange}
+        hint={field.hint}
+        shared={field.shared}
+      />
+    )
   }
   return (
     <TextField
@@ -204,6 +234,7 @@ export function SchemaField({ field, value, onChange }) {
       onChange={onChange}
       multiline={field.type === 'textarea'}
       hint={field.hint}
+      shared={field.shared}
     />
   )
 }

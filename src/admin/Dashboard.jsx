@@ -10,6 +10,7 @@ import {
 } from '../content/contentModel.js'
 import { CONTENT_ROW_ID } from '../i18n/LanguageContext.jsx'
 import { SECTION_SCHEMAS } from './schema.js'
+import { alignLanguages, otherLang, syncCustomSection, syncSection } from './sync.js'
 import SectionEditor from './SectionEditor.jsx'
 import CustomSectionEditor from './CustomSectionEditor.jsx'
 import LayoutEditor from './LayoutEditor.jsx'
@@ -82,18 +83,98 @@ export default function Dashboard({ session }) {
     )
   }
 
+  // Every edit also updates the other language: shared fields (images, links,
+  // proper nouns) are mirrored outright, and structural changes are replayed
+  // so nothing added here goes missing there. See sync.js.
   const updateSection = (key, value) => {
     setDirty(true)
-    setContent((prev) => ({ ...prev, [lang]: { ...prev[lang], [key]: value } }))
+    setContent((prev) => {
+      const other = otherLang(lang)
+      const synced = syncSection({
+        content: prev,
+        lang,
+        sectionKey: key,
+        prev: prev[lang][key],
+        next: value,
+        schema: SECTION_SCHEMAS[key],
+      })
+      return {
+        ...prev,
+        [lang]: { ...prev[lang], [key]: value },
+        [other]: { ...prev[other], [key]: synced },
+      }
+    })
   }
 
   const updateCustom = (id, value) => {
     setDirty(true)
     const key = customKey(id)
-    setContent((prev) => ({
-      ...prev,
-      [lang]: { ...prev[lang], custom: { ...prev[lang].custom, [key]: value } },
-    }))
+    setContent((prev) => {
+      const other = otherLang(lang)
+      const synced = syncCustomSection({
+        content: prev,
+        lang,
+        key,
+        prev: prev[lang].custom?.[key],
+        next: value,
+      })
+      return {
+        ...prev,
+        [lang]: { ...prev[lang], custom: { ...prev[lang].custom, [key]: value } },
+        [other]: { ...prev[other], custom: { ...prev[other].custom, [key]: synced } },
+      }
+    })
+  }
+
+  // Copies the section currently on screen over the other language verbatim —
+  // handy as a translation starting point.
+  const copySectionToOtherLang = () => {
+    const other = otherLang(lang)
+    const name = isCustomId(active)
+      ? content[lang].custom?.[customKey(active)]?.title || 'section ini'
+      : SECTION_SCHEMAS[active].label
+    if (
+      !window.confirm(
+        `Salin isi "${name}" dari ${lang.toUpperCase()} ke ${other.toUpperCase()}?\n\nTeks ${other.toUpperCase()} yang ada sekarang akan ditimpa.`,
+      )
+    )
+      return
+    setDirty(true)
+    setContent((prev) => {
+      if (isCustomId(active)) {
+        const key = customKey(active)
+        return {
+          ...prev,
+          [other]: {
+            ...prev[other],
+            custom: { ...prev[other].custom, [key]: structuredClone(prev[lang].custom[key]) },
+          },
+        }
+      }
+      return {
+        ...prev,
+        [other]: { ...prev[other], [active]: structuredClone(prev[lang][active]) },
+      }
+    })
+    setStatus({ state: 'idle', message: `Disalin ke ${other.toUpperCase()}. Jangan lupa Simpan.` })
+  }
+
+  // Repairs documents that already drifted apart before syncing existed.
+  const alignAll = () => {
+    const other = otherLang(lang)
+    if (
+      !window.confirm(
+        `Samakan struktur ${other.toUpperCase()} dengan ${lang.toUpperCase()}?\n\n` +
+          `Jumlah entri disamakan dan gambar/link/tahun disalin. Teks terjemahan yang sudah ada TIDAK diubah.`,
+      )
+    )
+      return
+    setDirty(true)
+    setContent((prev) => alignLanguages(prev, lang))
+    setStatus({
+      state: 'idle',
+      message: `Struktur ${other.toUpperCase()} disamakan dengan ${lang.toUpperCase()}. Jangan lupa Simpan.`,
+    })
   }
 
   const addCustomSection = () => {
@@ -238,10 +319,19 @@ export default function Dashboard({ session }) {
               </TabButton>
             ))}
           </div>
-          <p className="mt-4 font-body text-xs leading-relaxed text-paper-dim/70">
-            Bahasa <strong className="text-paper-dim">{lang.toUpperCase()}</strong> sedang diedit.
-            Ganti di atas untuk mengisi bahasa lainnya.
-          </p>
+          <div className="mt-4 space-y-2 rounded-md border border-line bg-ink-2/30 p-3">
+            <p className="font-body text-xs leading-relaxed text-paper-dim/80">
+              Sedang mengedit bahasa{' '}
+              <strong className="text-paper-dim">{lang.toUpperCase()}</strong>.
+            </p>
+            <p className="font-body text-xs leading-relaxed text-paper-dim/70">
+              Menambah, menghapus, atau mengurutkan entri otomatis ikut ke{' '}
+              {otherLang(lang).toUpperCase()}. Field bertanda{' '}
+              <span className="font-mono text-[0.6rem] text-teal">↔ 2 bahasa</span> (gambar, link,
+              tahun, nama) juga langsung sama. Hanya kalimat terjemahan yang perlu Anda isi
+              terpisah.
+            </p>
+          </div>
         </nav>
 
         {/* Editor pane */}
@@ -249,9 +339,18 @@ export default function Dashboard({ session }) {
           <div className="rounded-lg border border-line bg-ink-2/40 p-6">
             {active === 'layout' ? (
               <>
-                <h2 className="mb-5 font-display text-xl font-semibold tracking-[-0.02em]">
-                  Urutan &amp; Section
-                </h2>
+                <div className="mb-5 flex flex-wrap items-center justify-between gap-3">
+                  <h2 className="font-display text-xl font-semibold tracking-[-0.02em]">
+                    Urutan &amp; Section
+                  </h2>
+                  <button
+                    type="button"
+                    onClick={alignAll}
+                    className="rounded-md border border-line px-3 py-1.5 font-mono text-[0.64rem] uppercase tracking-[0.1em] text-paper-dim transition-colors hover:border-teal hover:text-teal"
+                  >
+                    Samakan struktur {otherLang(lang).toUpperCase()} dengan {lang.toUpperCase()}
+                  </button>
+                </div>
                 <LayoutEditor
                   layout={content.layout}
                   content={content}
@@ -265,9 +364,11 @@ export default function Dashboard({ session }) {
               </>
             ) : isCustomId(active) ? (
               <>
-                <h2 className="mb-5 font-display text-xl font-semibold tracking-[-0.02em]">
-                  {content[lang].custom?.[customKey(active)]?.title || 'Section Baru'}
-                </h2>
+                <EditorHeading
+                  title={content[lang].custom?.[customKey(active)]?.title || 'Section Baru'}
+                  lang={lang}
+                  onCopy={copySectionToOtherLang}
+                />
                 <CustomSectionEditor
                   data={content[lang].custom?.[customKey(active)]}
                   onChange={(v) => updateCustom(active, v)}
@@ -275,9 +376,11 @@ export default function Dashboard({ session }) {
               </>
             ) : (
               <>
-                <h2 className="mb-5 font-display text-xl font-semibold tracking-[-0.02em]">
-                  {SECTION_SCHEMAS[active].label}
-                </h2>
+                <EditorHeading
+                  title={SECTION_SCHEMAS[active].label}
+                  lang={lang}
+                  onCopy={copySectionToOtherLang}
+                />
                 <SectionEditor
                   sectionKey={active}
                   data={content[lang][active]}
@@ -292,6 +395,21 @@ export default function Dashboard({ session }) {
           </p>
         </main>
       </div>
+    </div>
+  )
+}
+
+function EditorHeading({ title, lang, onCopy }) {
+  return (
+    <div className="mb-5 flex flex-wrap items-center justify-between gap-3">
+      <h2 className="font-display text-xl font-semibold tracking-[-0.02em]">{title}</h2>
+      <button
+        type="button"
+        onClick={onCopy}
+        className="rounded-md border border-line px-3 py-1.5 font-mono text-[0.64rem] uppercase tracking-[0.1em] text-paper-dim transition-colors hover:border-gold hover:text-gold"
+      >
+        Salin {lang.toUpperCase()} → {otherLang(lang).toUpperCase()}
+      </button>
     </div>
   )
 }
