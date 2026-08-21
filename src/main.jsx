@@ -10,6 +10,16 @@ const AdminApp = React.lazy(() => import('./admin/AdminApp.jsx'))
 
 const isAdmin = window.location.pathname.replace(/\/+$/, '') === '/admin'
 
+// The dashboard shares index.html with the public site, so keep it out of
+// search results explicitly (robots.txt disallows it too).
+if (isAdmin) {
+  const meta = document.createElement('meta')
+  meta.name = 'robots'
+  meta.content = 'noindex, nofollow'
+  document.head.appendChild(meta)
+  document.title = 'Dashboard Admin'
+}
+
 const Loading = () => (
   <div
     style={{
